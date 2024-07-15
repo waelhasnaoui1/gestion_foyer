@@ -16,7 +16,7 @@ services:
     environment:
       MYSQL_DATABASE: gestionfoyeramira
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: root
+
     ports:
       - "3306:3306"
     volumes:
