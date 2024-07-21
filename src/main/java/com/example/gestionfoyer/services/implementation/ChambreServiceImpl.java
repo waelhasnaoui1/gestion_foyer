@@ -1,6 +1,9 @@
 package com.example.gestionfoyer.services.implementation;
 
 import com.example.gestionfoyer.entities.Chambre;
+import com.example.gestionfoyer.entities.TypeChambre;
+import com.example.gestionfoyer.exceptions.NotFoundException;
+import com.example.gestionfoyer.repositories.ChambreRepo;
 import com.example.gestionfoyer.services.ChambreService;
 import org.springframework.stereotype.Service;
 
@@ -9,14 +12,22 @@ import java.util.List;
 @Service
 public class ChambreServiceImpl implements ChambreService {
 
+    private final ChambreRepo chambreRepo;
+
+    public ChambreServiceImpl(ChambreRepo chambreRepo) {
+        this.chambreRepo = chambreRepo;
+    }
+
+
     @Override
     public List<Chambre> retrieveAllChambres() {
         return null;
     }
 
     @Override
-    public Chambre addChambre(Chambre c) {
-        return null;
+    public Chambre addChambre(Chambre chambre) {
+
+        return chambreRepo.save(chambre);
     }
 
     @Override
@@ -26,6 +37,38 @@ public class ChambreServiceImpl implements ChambreService {
 
     @Override
     public Chambre retrieveChambre(long idChambre) {
+
+        return getChambreById(idChambre);
+
+    }
+
+    @Override
+    public Chambre getChambreById(long idChambre) {
+        return chambreRepo.findById(idChambre).orElseThrow(()-> new NotFoundException("chambre with the id "+String.valueOf(idChambre)));
+    }
+
+    @Override
+    public void deleteChambre(long idChambre) {
+
+    }
+
+    @Override
+    public List<Chambre> getChambresParNomUniversite(String nomUniversite) {
+        return null;
+    }
+
+    @Override
+    public List<Chambre> getChambresParBlocEtTypeKeyWord(long idBloc, TypeChambre typeC) {
+        return null;
+    }
+
+    @Override
+    public List<Chambre> getChambresParBlocEtTypeJPQL(long idBloc, TypeChambre typeC) {
+        return null;
+    }
+
+    @Override
+    public List<Chambre> getChambresNonReserveParNomUniversiteEtTypeChambre(String nomUniversite, TypeChambre type) {
         return null;
     }
 }

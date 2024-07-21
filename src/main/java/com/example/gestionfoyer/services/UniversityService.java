@@ -11,4 +11,6 @@ public interface UniversityService {
     University updateUniversite (University u);
     University retrieveUniversite (long idUniversite);
 
+    //TODO:from last seance by amira
+
 }
