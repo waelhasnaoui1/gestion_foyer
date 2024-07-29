@@ -5,11 +5,14 @@ import com.example.gestionfoyer.entities.TypeChambre;
 import com.example.gestionfoyer.exceptions.NotFoundException;
 import com.example.gestionfoyer.repositories.ChambreRepo;
 import com.example.gestionfoyer.services.ChambreService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class ChambreServiceImpl implements ChambreService {
 
     private final ChambreRepo chambreRepo;
@@ -21,7 +24,8 @@ public class ChambreServiceImpl implements ChambreService {
 
     @Override
     public List<Chambre> retrieveAllChambres() {
-        return null;
+
+        return chambreRepo.findAll();
     }
 
     @Override
@@ -32,7 +36,7 @@ public class ChambreServiceImpl implements ChambreService {
 
     @Override
     public Chambre updateChambre(Chambre c) {
-        return null;
+        return chambreRepo.save(c);
     }
 
     @Override
@@ -49,26 +53,35 @@ public class ChambreServiceImpl implements ChambreService {
 
     @Override
     public void deleteChambre(long idChambre) {
-
+        chambreRepo.deleteById(idChambre);
     }
 
     @Override
     public List<Chambre> getChambresParNomUniversite(String nomUniversite) {
-        return null;
+        return chambreRepo.findByBlocFoyerUniversityNomUniversite(nomUniversite);
     }
 
     @Override
     public List<Chambre> getChambresParBlocEtTypeKeyWord(long idBloc, TypeChambre typeC) {
-        return null;
+        return chambreRepo.findByBlocIdBlocAndTypeC(idBloc,typeC);
     }
 
     @Override
     public List<Chambre> getChambresParBlocEtTypeJPQL(long idBloc, TypeChambre typeC) {
+        return chambreRepo.findByBlocAndTypeCJPQL(idBloc,typeC);
+    }
+
+    @Override
+
+    public List<Chambre> getChambresNonReserveParNomUniversiteEtTypeChambre(String nomUniversite, TypeChambre type) {
         return null;
     }
 
     @Override
-    public List<Chambre> getChambresNonReserveParNomUniversiteEtTypeChambre(String nomUniversite, TypeChambre type) {
-        return null;
+    @Scheduled(cron ="*/30  * * * * * ")
+    public void getChambresNonReserve() {
+        log.info(chambreRepo.getChambresNonReserve().toString());
     }
+
+
 }

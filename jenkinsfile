@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+    tools{
+        maven "maven"
+    }
+    environment {
+        cred = credentials("docker_key")
+    }
+    stages{
+        stage("checkout"){
+            steps{
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/waelhasnaoui1/gestion_foyer']])
+            }
+        }
+       stage('Login to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker_key', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
+                    script {
+                        sh '''
+                            echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
+                        '''
+                    }
+                }
+            }
+       }
+
+
+        stage('build maven'){
+            steps{
+                sh "mvn package -DskipTests"
+
+            }
+        }
+
+        stage("build & tag the image"){
+            steps{
+                sh "docker build -t  waelhasnaoui006/gestion_foyer:$BUILD_NUMBER ."
+            }
+        }
+        stage ("push to dockerhub"){
+            steps{
+                sh "docker push waelhasnaoui006/gestion_foyer:$BUILD_NUMBER"
+            }
+        }
+    }
+}
+
+// sudo usermod -aG docker jenkins

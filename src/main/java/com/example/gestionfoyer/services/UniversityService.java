@@ -11,6 +11,16 @@ public interface UniversityService {
     University updateUniversite (University u);
     University retrieveUniversite (long idUniversite);
 
+    List<University> getALllUniversities();
+
+    University getUniversityById(long idUniversity);
+
+    void deleteUniversity(long idUniversity);
+
+    University affecterFoyerAUniversity(long idFoyer,long idUniversity);
+
+    University desaffecterFoyerUniversity(long idUniversity);
+
     //TODO:from last seance by amira
 
 }

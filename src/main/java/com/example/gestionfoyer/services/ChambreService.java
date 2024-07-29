@@ -20,4 +20,6 @@ public interface ChambreService {
     List<Chambre> getChambresParBlocEtTypeKeyWord(long idBloc, TypeChambre typeC) ;
     List<Chambre> getChambresParBlocEtTypeJPQL(long idBloc, TypeChambre typeC) ;
     List<Chambre>  getChambresNonReserveParNomUniversiteEtTypeChambre( String nomUniversite,TypeChambre type) ;
+
+    void getChambresNonReserve();
 }
