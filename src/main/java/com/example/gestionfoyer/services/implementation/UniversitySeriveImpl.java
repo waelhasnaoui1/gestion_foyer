@@ -3,6 +3,7 @@ package com.example.gestionfoyer.services.implementation;
 import com.example.gestionfoyer.entities.Foyer;
 import com.example.gestionfoyer.entities.University;
 import com.example.gestionfoyer.exceptions.NotFoundException;
+import com.example.gestionfoyer.repositories.FoyerRepo;
 import com.example.gestionfoyer.repositories.UniversityRepo;
 import com.example.gestionfoyer.services.FoyerService;
 import com.example.gestionfoyer.services.UniversityService;
@@ -15,11 +16,11 @@ public class UniversitySeriveImpl implements UniversityService {
 
 
     private final UniversityRepo universityRepo;
-    private final FoyerService foyerService;
+    private final FoyerRepo foyerRepo;
 
-    public UniversitySeriveImpl(UniversityRepo universityRepo, FoyerService foyerService) {
+    public UniversitySeriveImpl(UniversityRepo universityRepo, FoyerRepo foyerRepo) {
         this.universityRepo = universityRepo;
-        this.foyerService = foyerService;
+        this.foyerRepo = foyerRepo;
     }
 
     @Override
@@ -68,12 +69,14 @@ public class UniversitySeriveImpl implements UniversityService {
     }
 
     @Override
-    public University affecterFoyerAUniversity(long idFoyer, long idUniversity) {
-        University existUniversity= retrieveUniversite(idUniversity);
-        Foyer existFoyer = foyerService.retrieveFoyer(idUniversity);
+    public University affecterFoyerAUniversity(long idFoyer, String nomUniversite) {
+        University existUniversity= universityRepo.findByNomUniversite(nomUniversite);
+//        Foyer existFoyer = foyerService.retrieveFoyer(idFoyer);
+        Foyer existFoyer = foyerRepo.findById(idFoyer).orElseThrow(()-> new NotFoundException("this foyer not exist"));;
         existUniversity.setFoyer(existFoyer);
         universityRepo.save(existUniversity);
         return existUniversity;
+
     }
 
     @Override

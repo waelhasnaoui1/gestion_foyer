@@ -6,6 +6,7 @@ import com.example.gestionfoyer.exceptions.NotFoundException;
 import com.example.gestionfoyer.repositories.BlocRepo;
 import com.example.gestionfoyer.repositories.ChambreRepo;
 import com.example.gestionfoyer.services.BlocService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
