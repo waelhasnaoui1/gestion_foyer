@@ -1,4 +1,4 @@
-package com.example.gestionfoyer.config;
+package com.example.gestionfoyer.config.security;
 
 import com.example.gestionfoyer.services.auth.UserService;
 import lombok.RequiredArgsConstructor;

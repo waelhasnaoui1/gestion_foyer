@@ -1,4 +1,4 @@
-package com.example.gestionfoyer.dao.auth.response;
+package com.example.gestionfoyer.dto.auth.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

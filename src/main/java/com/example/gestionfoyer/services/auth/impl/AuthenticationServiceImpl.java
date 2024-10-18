@@ -1,9 +1,9 @@
 package com.example.gestionfoyer.services.auth.impl;
 
 
-import com.example.gestionfoyer.dao.auth.SignUpRequest;
-import com.example.gestionfoyer.dao.auth.SingninRequest;
-import com.example.gestionfoyer.dao.auth.response.JwtAuthenticationResponse;
+import com.example.gestionfoyer.dto.auth.SignUpRequest;
+import com.example.gestionfoyer.dto.auth.SingninRequest;
+import com.example.gestionfoyer.dto.auth.response.JwtAuthenticationResponse;
 import com.example.gestionfoyer.entities.auth.Role;
 import com.example.gestionfoyer.entities.auth.User;
 import com.example.gestionfoyer.repositories.auth.UserRepository;
